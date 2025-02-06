@@ -3,45 +3,42 @@ describe('Gestion des utilisateurs', () => {
         cy.visit('index.html'); // Assurez-vous que le serveur tourne bien
     });
 
-    // Fonction pour ajouter un utilisateur
-    function addUser(name, email) {
-        cy.get('#name').clear().type(name);
-        cy.get('#email').clear().type(email);
-        cy.get('#userForm button').click();
-        cy.get('#userList').contains(name).should('exist'); // Vérification immédiate
-    }
-
-    // Fonction pour trouver un utilisateur
-    function findUser(name) {
-        return cy.get('#userList li').contains(name).parent();
-    }
-
-    // Fonction pour modifier un utilisateur
-    function editUser(oldName, newName, newEmail) {
-        findUser(oldName).find('.edit-button').click();
-        cy.get('#name').clear().type(newName);
-        cy.get('#email').clear().type(newEmail);
-        cy.get('#userForm button').click();
-        cy.get('#userList').contains(newName).should('exist'); // Vérification rapide
-    }
-
-    // Fonction pour supprimer un utilisateur
-    function deleteUser(name) {
-        findUser(name).find('.delete-button').click();
-        cy.get('#userList').contains(name).should('not.exist'); // Vérification rapide
-    }
-
     it('Ajout d’un utilisateur', () => {
-        addUser('John Doe', 'johndoe@example.com');
+        cy.get('#name').type('John Doe', { delay: 10 }); // Réduit le délai entre chaque frappe
+        cy.get('#email').type('johndoe@example.com', { delay: 10 });
+        cy.get('#userForm button').click();
+
+        // Vérifier immédiatement que l'élément est bien ajouté
+        cy.get('#userList').contains('John Doe').should('be.visible');
+        cy.get('#userList').contains('johndoe@example.com').should('be.visible');
     });
 
     it('Modification d’un utilisateur', () => {
-        addUser('John Doe', 'johndoe@example.com');
-        editUser('John Doe', 'Jane Doe', 'janedoe@example.com');
+        cy.get('#name').type('John Doe');
+        cy.get('#email').type('johndoe@example.com');
+        cy.get('#userForm button').click();
+
+        // Modifier l'utilisateur
+        cy.get('#userList li').first().find('.edit-button').click();
+
+        cy.get('#name').should('be.visible').clear().type('Jane Doe');
+        cy.get('#email').should('be.visible').clear().type('janedoe@example.com');
+        cy.get('#userForm button').click();
+
+        // Vérifier l'affichage immédiat
+        cy.get('#userList').contains('Jane Doe').should('be.visible');
+        cy.get('#userList').contains('janedoe@example.com').should('be.visible');
     });
 
     it('Suppression d’un utilisateur', () => {
-        addUser('User Test', 'usertest@example.com');
-        deleteUser('User Test');
+        cy.get('#name').type('User Test');
+        cy.get('#email').type('usertest@example.com');
+        cy.get('#userForm button').click();
+
+        // Supprimer l'utilisateur
+        cy.get('#userList li').first().find('.delete-button').click();
+
+        // Vérifier immédiatement la disparition
+        cy.get('#userList').contains('User Test').should('not.exist');
     });
 });

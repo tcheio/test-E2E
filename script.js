@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const li = document.createElement("li");
                 li.innerHTML = `
                     ${user.name} (${user.email})
-                    <button onclick="editUser(${user.id}, '${user.name}', '${user.email}')">✏️</button>
-                    <button onclick="deleteUser(${user.id})">❌</button>
+                    <button class="edit-button" data-id="${user.id}" data-name="${user.name}" data-email="${user.email}">✏️</button>
+                    <button class="delete-button" data-id="${user.id}">❌</button>
                 `;
                 userList.appendChild(li);
             });
@@ -25,6 +25,24 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("❌ Erreur lors de la récupération des utilisateurs :", error);
         }
     }
+
+    // Ajouter un écouteur d'événements pour la modification
+    userList.addEventListener("click", function(event) {
+        if (event.target.classList.contains("edit-button")) {
+            const id = event.target.getAttribute("data-id");
+            const name = event.target.getAttribute("data-name");
+            const email = event.target.getAttribute("data-email");
+            editUser(id, name, email);
+        }
+    });
+
+    // Ajouter un écouteur d'événements pour la suppression
+    userList.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete-button")) {
+            const id = event.target.getAttribute("data-id");
+            deleteUser(id);
+        }
+    });
 
     // 🔹 Ajout ou mise à jour d'un utilisateur
     userForm.addEventListener("submit", async function (e) {
