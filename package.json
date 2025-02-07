@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "cypress": "^14.0.2"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.28.1"
   }
 }
