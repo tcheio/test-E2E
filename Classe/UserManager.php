@@ -19,14 +19,14 @@ class UserManager
         $this->db = new PDO("mysql:host=$host;port=3308;dbname=$dbname;charset=utf8", $username, $password);
     }
 
-    public function addUser(string $name, string $email): void
+    public function addUser(string $name, string $email, ?string $deadline = null): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException("Email invalide.");
         }
 
-        $stmt = $this->db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-        $stmt->execute(['name' => $name, 'email' => $email]);
+        $stmt = $this->db->prepare("INSERT INTO users (name, email, deadline) VALUES (:name, :email, :deadline)");
+        $stmt->execute(['name' => $name, 'email' => $email, 'deadline' => $deadline]);
     }
 
     public function removeUser(int $id): void

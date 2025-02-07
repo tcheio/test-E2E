@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'thoma/gestion_produit',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '06a2e33d9917c755b74d52f8fe78608ee3eb2f00',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -305,9 +305,9 @@
             'dev_requirement' => true,
         ),
         'thoma/gestion_produit' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '06a2e33d9917c755b74d52f8fe78608ee3eb2f00',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

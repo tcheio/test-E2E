@@ -17,6 +17,7 @@
     },
   "require": {
     "ext-pdo": "*",
-        "php-webdriver/webdriver": "^1.15"
+        "php-webdriver/webdriver": "^1.15",
+        "facebook/webdriver": "*"
   }
 }
